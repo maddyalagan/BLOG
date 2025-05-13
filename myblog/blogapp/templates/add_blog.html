@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG MANAGEMENT SYSTEM</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<body>
+    <div class="container1">
+        <h1>Add BLOG</h1>
+        <form action="{% url 'add_blog' %}"  enctype="multipart/form-data"  method="POST">
+            {% csrf_token %}
+            <label for="">TITLE</label><br><br>
+            <input type="text" name="title"><br><br>
+            <label for="">CONTENT</label><br><br>
+            <input type="text" name="content"><br><br>
+            <label for="">IMAGE</label><br><br>
+            <input type="file" name="image" id=""><br>
+            <button type="submit" id="new">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

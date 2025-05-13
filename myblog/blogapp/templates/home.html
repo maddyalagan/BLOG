@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG MANAGEMENT SYSTEM</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<body>
+    <div style="text-align: center;">
+        <form action="" method="GET">
+            {% csrf_token %}
+            <input type="search" name="blog_name" placeholder="search the title">
+            <button type="submit">search</button>
+        </form>
+        </div>
+    <div class="container">
+        <h1>BLOGS</h1>
+        <table id="customers" border="1">
+            <thead>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th colspan="2" id="mid">Action</th>
+            </thead>
+            {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.content }}</td>
+                <td><img src="{{ blog.image.url }}" style="width: 100px; "></td>
+                <td>
+                    <a href="{% url 'update_blog' blog.id %}"><button id="up">Edit</button> </a>
+                </td>
+                <td>
+                    <!-- <a href="{% url 'delete_blog' blog.id %}"><button id="del">Delete</button></a> -->
+                    <a href="delete/{{ blog.id }}"><button id="del">Delete</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br>
+        <a href="{% url 'add_blog' %}"><button id="new3">Add BLOG</button></a>
+    </div>
+
+</body>
+<div style="text-align: center;">
+    {% if blogs.has_previous %}
+    <a href="?page=1">First</a>
+    <a href="?page={‌{ blogs.previous_page_number }}"><p>{{ blogs.previous_page_number }} </p></a>
+    {% endif %}
+    <p>{{ blogs.number }}  of {{ blogs.paginator.num_pages }}</p>
+    {% if blogs.has_next %}
+    <a href="?page=2">Next</a>
+    <!-- <a href="?page={‌{blogs.next_page_number}}">Next</a> -->
+    <a href="?page={‌{blogs.paginator.num_pages}}">Last</a>
+    {% endif %}
+    </div>
+</html>

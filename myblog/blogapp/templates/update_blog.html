@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG MANAGEMENT SYSTEM</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<script>
+    document.getElementById('image').addEventListener('change', function() {
+  var imageName = this.files.length > 0 ? this.files[0].name : 'No file selected';
+  document.getElementById('image').textContent = 'Selected image: ' + imageName;
+});
+</script>
+<body>
+    <div class="container2">
+        <h1>Update Member</h1>
+        <form action="{% url 'update_blog' blog.id %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <label for="">TITLE</label><br><br>
+            <input type="text" name="title" value="{{blog.title}}"><br><br>
+            <label for="">CONTENT</label><br><br>
+            <input type="text" name="content" value="{{blog.content}}"><br><br>
+            <label for="image">IMAGE</label><br><br>
+            <input type="file" id="image" name="image" value="{{blog.image.path}}"><br><br>
+            <button type="submit" id="new1">Update</button>
+        </form>
+
+    </div>
+</body>
+
+</html>
